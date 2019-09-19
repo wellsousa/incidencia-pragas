@@ -8,7 +8,9 @@
             <h3>Auxilio de Tomada de Decisão</h3>
             
 
-            <button id="btn-show-incidency">Verificar Incidência</button>
+            <button id="btn-show-incidence">Verificar Incidência</button>
+
+            <div id="content"></div>
         </div>
 
         
@@ -24,9 +26,9 @@
                       {id: 2, name: "Falsa Medideira", quantity: 32}];
 
 
-            var incidency = 0;
+            var incidence = 0;
 
-           var containerElement = document.querySelector('div#main');
+           var containerElement = document.querySelector('div#main div#content');
            
             //recebe dois parametro o conteudo que um array
             function createTable(header, content){
@@ -52,22 +54,32 @@
                     var tr = document.createElement('tr');
 
                     //cria 3 colunas: nome, quantidade e incidencia que é calculada
-                    for(var j=0; j <3; j++){
+                    for(var j=0; j <5; j++){
                         //cria uma estrutura td ou th baseada no indice j
                         var structure = document.createElement('td');
                         //cria um texto para o elemento
                         //var elementText = document.createTextNode(content[i][j]);
                         switch(j){
                             case 0:
+                                var elementText = document.createTextNode(content[i].id);
+                                break; 
+                            case 1:
                                var elementText = document.createTextNode(content[i].name);
                                break;
-                            case 1:
+                            case 2:
                                var elementText = document.createTextNode(content[i].quantity);
                                break;
-                            case 2:
+                            case 3:
                                 //calculo de incidência
-                                incidency = (list[i].quantity/totalArea)*100;
-                                var elementText = document.createTextNode(incidency);
+                                incidence = (list[i].quantity/totalArea)*100;
+                                var elementText = document.createTextNode(incidence);
+                                break;
+                            case 4:
+                                if(incidence <= 30){
+                                    var elementText = document.createTextNode("aceitável");
+                                }else{
+                                    var elementText = document.createTextNode("verificar o problema.");
+                                }
 
                         }
                         structure.appendChild(elementText);
@@ -84,11 +96,13 @@
             }
 
             //referencia ao botao que mostra a tabela
-            var btnElement = document.querySelector('div#main button#btn-show-incidency');
+            var btnElement = document.querySelector('div#main button#btn-show-incidence');
 
             btnElement.onclick = function(){
+                //limpa o conteudo da div onde renderizamos a tabela
+                containerElement.innerHTML = "";
                 //gera dinamicamente uma tabela com o resultado para o calculo de incidencia
-                containerElement.appendChild(createTable(['Nome','Quantidade','Incidencia'],list));
+                containerElement.appendChild(createTable(['id','Nome','Quantidade','Incidencia','status'],list));
             }
 
             

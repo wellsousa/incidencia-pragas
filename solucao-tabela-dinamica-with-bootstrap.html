@@ -19,7 +19,7 @@
             </br>
             </br>
 
-            <button id="btn-show-incidency">Verificar Incidência</button>
+            <button id="btn-show-incidence">Verificar Incidência</button>
 
             <div id="content"></div>
         </div>
@@ -39,7 +39,7 @@
                       {id: 2, name: "Falsa Medideira", quantity: 32}];
 
 
-            var incidency = 0;
+            var incidence = 0;
 
            var containerElement = document.querySelector('div#main div#content');
            
@@ -72,7 +72,7 @@
                     var tr = document.createElement('tr');
 
                     //cria 3 colunas: nome, quantidade e incidencia que é calculada
-                    for(var j=0; j <4; j++){
+                    for(var j=0; j <5; j++){
                         //cria uma estrutura td ou th baseada no indice j
                         var structure = document.createElement('td');
                         //cria um texto para o elemento
@@ -89,8 +89,15 @@
                                break;
                             case 3:
                                 //calculo de incidência
-                                incidency = (list[i].quantity/totalArea)*100;
-                                var elementText = document.createTextNode(incidency);
+                                incidence = (list[i].quantity/totalArea)*100;
+                                var elementText = document.createTextNode(incidence);
+                                break;
+                            case 4:
+                                if(incidence <= 30){
+                                    var elementText = document.createTextNode("aceitável");
+                                }else{
+                                    var elementText = document.createTextNode("verificar o problema.");
+                                }
 
                         }
                         structure.appendChild(elementText);
@@ -107,7 +114,7 @@
             }
 
             //referencia ao botao que mostra a tabela
-            var btnElement = document.querySelector('div#main button#btn-show-incidency');
+            var btnElement = document.querySelector('div#main button#btn-show-incidence');
             btnElement.classList.add('btn');
             btnElement.classList.add('btn-outline-dark');
 
@@ -115,7 +122,7 @@
                 //limpamos o conteúdo da div principal
                 containerElement.innerHTML = '';
                 //gera dinamicamente uma tabela com o resultado para o calculo de incidencia
-                containerElement.appendChild(createTable(['id','Nome','Quantidade','Incidencia'],list));
+                containerElement.appendChild(createTable(['id','Nome','Quantidade','Incidencia','status'],list));
             }
 
             
