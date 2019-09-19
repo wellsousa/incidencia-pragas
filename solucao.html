@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>>solução para o problema - incidencia de pragas</title>
+    </head>
+    <body>
+        <div class="main">
+            <h3>Incidência de Pragas</h3>
+            
+            <p>Essa é uma solução simples para o problema e seu resultado pode ser visto atráves do console do navegador.</p>
+            <p>Você poderá ver a incidencia para cada uma das pragas na lista e o script informa as pragas com incidencia maior que 30%</p>
+        </div>
+        <script>
+            const totalArea = 250;
+
+            var list = [{id: 1, name: "Spodoptera", quantity:46}, 
+                        {id: 2, name: "Torraozinho", quantity:91},
+                        {id: 3, name:"Falsa Medideira", quantity: 32}];
+            
+            var incidencia = 0;
+            
+            for(var i=0; i < 3; i++){
+
+                incidencia = (list[i].quantity/totalArea)*100;
+
+                console.log("A praga " + list[i].name + " tem incidencia de " + incidencia);
+
+                if(incidencia > 30){
+                    console.log("A praga " + list[i].name + " supera incidencia máxima aceitável de 30%");
+                }
+            }
+        </script>
+    </body>
+</html>

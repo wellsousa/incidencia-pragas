@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>>incidência de pragas</title>
+    </head>
+    <body>
+        <div id="main" class="main">
+            <h3>Auxilio de Tomada de Decisão</h3>
+            
+
+            <button id="btn-show-incidency">Verificar Incidência</button>
+        </div>
+
+        
+        
+        <script>
+            /*
+            Esse script é uma versão melhorada da solução prosta para o desafio.
+            Nessa versao a tabela de analise é gerada dinamicamente via javascript e renderizada na tela
+            */
+           const totalArea = 250;
+            var list=[{id: 0, name: "Spodoptera", quantity: 46},
+                      {id: 1, name: "Torraozinho", quantity: 91},
+                      {id: 2, name: "Falsa Medideira", quantity: 32}];
+
+
+            var incidency = 0;
+
+           var containerElement = document.querySelector('div#main');
+           
+            //recebe dois parametro o conteudo que um array
+            function createTable(header, content){
+                var elementTable = document.createElement('table');
+                var elementThead = document.createElement('thead');
+                var elementTBody = document.createElement('tbody');
+
+
+                //geração do cabeçalho da tabela
+                var trHead = document.createElement('tr');
+
+                for(var i=0; i < header.length; i++){    
+                    var structureHead = document.createElement('th');
+                    var elementTextHead = document.createTextNode(header[i]);
+                    structureHead.appendChild(elementTextHead);
+                    trHead.appendChild(structureHead);
+                }
+
+                elementThead.appendChild(trHead);
+
+                //percorre o numero total de itens na lista
+                for(var i=0; i < content.length; i++){
+                    var tr = document.createElement('tr');
+
+                    //cria 3 colunas: nome, quantidade e incidencia que é calculada
+                    for(var j=0; j <3; j++){
+                        //cria uma estrutura td ou th baseada no indice j
+                        var structure = document.createElement('td');
+                        //cria um texto para o elemento
+                        //var elementText = document.createTextNode(content[i][j]);
+                        switch(j){
+                            case 0:
+                               var elementText = document.createTextNode(content[i].name);
+                               break;
+                            case 1:
+                               var elementText = document.createTextNode(content[i].quantity);
+                               break;
+                            case 2:
+                                //calculo de incidência
+                                incidency = (list[i].quantity/totalArea)*100;
+                                var elementText = document.createTextNode(incidency);
+
+                        }
+                        structure.appendChild(elementText);
+                        tr.appendChild(structure);
+                    }
+
+                    elementTBody.appendChild(tr);
+                }
+
+                elementTable.appendChild(elementThead);
+                elementTable.appendChild(elementTBody);
+
+                return elementTable;
+            }
+
+            //referencia ao botao que mostra a tabela
+            var btnElement = document.querySelector('div#main button#btn-show-incidency');
+
+            btnElement.onclick = function(){
+                //gera dinamicamente uma tabela com o resultado para o calculo de incidencia
+                containerElement.appendChild(createTable(['Nome','Quantidade','Incidencia'],list));
+            }
+
+            
+        </script>
+    </body>
+</html>
